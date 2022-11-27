@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "414069582109",
+    "project_id": "lionyxfirstfirebase",
+    "storage_bucket": "lionyxfirstfirebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:414069582109:android:ba923f93960195535459f4",
+        "android_client_info": {
+          "package_name": "com.example.firebasedir"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "414069582109-esri7vil2jaajgm30lve132eb871d9q9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfulgMYItSWQqzTknievK4-mal-IBrh5U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "414069582109-esri7vil2jaajgm30lve132eb871d9q9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "414069582109-athtjbdstksi686ma6mlvcnka46jgvmm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.firebasedir"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:414069582109:android:a6c36dd82ba83d4d5459f4",
+        "android_client_info": {
+          "package_name": "com.example.firebasetest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "414069582109-esri7vil2jaajgm30lve132eb871d9q9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfulgMYItSWQqzTknievK4-mal-IBrh5U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "414069582109-esri7vil2jaajgm30lve132eb871d9q9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "414069582109-athtjbdstksi686ma6mlvcnka46jgvmm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.firebasedir"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
