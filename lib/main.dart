@@ -14,7 +14,6 @@ void main(List<String> args) async {
     routes: {
       '/login/' : (context) => const LoginView(),
       '/register/' :(context) => const RegisterView(),
-
     },
   ));
 }
