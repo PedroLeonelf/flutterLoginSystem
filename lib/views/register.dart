@@ -1,10 +1,10 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebasetest/constants/routes.dart';
+import 'package:firebasetest/utilities/show_error_dialog.dart';
 
 import 'package:flutter/material.dart';
-
-
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -27,9 +27,10 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Register'),),
-      body: getConnection()
-    );
+        appBar: AppBar(
+          title: const Text('Register'),
+        ),
+        body: getConnection());
   }
 
   Widget getConnection() {
@@ -55,22 +56,18 @@ class _RegisterViewState extends State<RegisterView> {
                 log(userCredential.toString());
               } on FirebaseAuthException catch (e) {
                 if (e.code == 'weak-password') {
-                  log("Weak password!");
+                  showErrorDialog(context, 'Weak passord!');
                 } else if (e.code == 'email-already-in-use') {
-                  log('Email in use.');
+                  showErrorDialog(context, 'Email in use!');
                 }
               }
             },
             child: const Text('Register')),
-
-
         TextButton(
           child: const Text('Login here!'),
           onPressed: () {
-            Navigator.of(context).pushNamedAndRemoveUntil(
-              '/login/',
-              (route) => false
-            );            
+            Navigator.of(context)
+                .pushNamedAndRemoveUntil(loginRoute, (route) => false);
           },
         )
       ],
