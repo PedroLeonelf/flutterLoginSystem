@@ -3,6 +3,7 @@
 
 import 'package:firebasetest/views/home.dart';
 import 'package:firebasetest/views/login.dart';
+import 'package:firebasetest/views/notes.dart';
 import 'package:firebasetest/views/register.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,8 @@ void main(List<String> args) async {
     routes: {
       '/login/' : (context) => const LoginView(),
       '/register/' :(context) => const RegisterView(),
+      '/notes/' :(context) => const NotesView(),
+      
     },
   ));
 }

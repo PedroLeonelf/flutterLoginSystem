@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
       body: FutureBuilder(
         future: Firebase.initializeApp(
             options: DefaultFirebaseOptions.currentPlatform),
-        builder: ((context, snapshot) {
+        builder: ((context, snapshot,) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
               final user = FirebaseAuth.instance.currentUser;
