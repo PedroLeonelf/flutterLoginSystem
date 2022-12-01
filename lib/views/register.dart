@@ -39,11 +39,12 @@ class _RegisterViewState extends State<RegisterView> {
         TextField(
           autofillHints: AutofillHints.email.characters,
           controller: _email,
-          decoration: InputDecoration(hintText: "Enter your email here:"),
+          decoration: const InputDecoration(hintText: "Enter your email here:"),
         ),
         TextField(
           controller: _pass,
-          decoration: InputDecoration(hintText: 'Enter your password here:'),
+          decoration:
+              const InputDecoration(hintText: 'Enter your password here:'),
         ),
         TextButton(
             onPressed: () async {
@@ -56,9 +57,11 @@ class _RegisterViewState extends State<RegisterView> {
                 log(userCredential.toString());
               } on FirebaseAuthException catch (e) {
                 if (e.code == 'weak-password') {
-                  showErrorDialog(context, 'Weak passord!');
+                  await showErrorDialog(context, 'Weak passord!');
                 } else if (e.code == 'email-already-in-use') {
-                  showErrorDialog(context, 'Email in use!');
+                  await showErrorDialog(context, 'Email in use!');
+                } else {
+                  await showErrorDialog(context, '$e.code');
                 }
               }
             },
