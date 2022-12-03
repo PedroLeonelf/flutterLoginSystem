@@ -1,7 +1,8 @@
-import 'dart:developer';
 
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:firebasetest/constants/routes.dart';
+import 'package:firebasetest/services/auth/auth_exceptions.dart';
+import 'package:firebasetest/services/auth/auth_service.dart';
 
 import 'package:flutter/material.dart';
 
@@ -50,11 +51,10 @@ class _LoginViewState extends State<LoginView> {
               final email = _email.text;
               final pass = _pass.text;
               try {
-                await FirebaseAuth.instance
-                    .signInWithEmailAndPassword(email: email, password: pass);
+                await AuthService.firebase().login(email: email, password: pass);
 
-                final user = FirebaseAuth.instance.currentUser;
-                if (user?.emailVerified ?? false) {
+                final user = AuthService.firebase().currentUser;
+                if (user?.isEmailVerified ?? false) {
                   Navigator.of(context).pushNamedAndRemoveUntil(
                     notesRoute,
                     (route) => false,
@@ -65,15 +65,14 @@ class _LoginViewState extends State<LoginView> {
                     (route) => false,
                   );
                 }
-              } on FirebaseAuthException catch (e) {
-                if (e.code == 'user-not-found') {
-                  await showErrorDialog(context, 'User not found!');
-                } else if (e.code == 'wrong-password') {
-                  await showErrorDialog(context, 'Wrong password!');
-                } else {
-                  await showErrorDialog(context, '$e.code');
-                }
+              } on UserNotFoundException{
+                await showErrorDialog(context, 'User not found');
+              } on WrongPasswordException{
+                await showErrorDialog(context, 'Wrong password');
+              } on GenericException{
+                await showErrorDialog(context, 'Authentification error');
               }
+              
             },
             child: const Text('Login')),
         TextButton(

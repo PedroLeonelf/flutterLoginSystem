@@ -5,9 +5,15 @@ import 'package:firebasetest/services/auth/auth_exceptions.dart';
 import 'package:firebase_auth/firebase_auth.dart'
     show FirebaseAuth, FirebaseAuthException;
 
+import '../../firebase_options.dart';
+
 class FirebaseAuthProvider implements AuthProvider {
   @override
-  Future<UserAuth> createUser({required String email, required String password}) async {
+  Future<UserAuth> createUser({
+    required String email,
+    required String password,
+  }) 
+  async {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
@@ -53,7 +59,11 @@ class FirebaseAuthProvider implements AuthProvider {
   }
 
   @override
-  Future<UserAuth> login({required String email, required String password}) async {
+  Future<UserAuth> login({
+    required String email,
+    required String password,
+  }) 
+  async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
@@ -86,5 +96,12 @@ class FirebaseAuthProvider implements AuthProvider {
     } else {
       throw UserNotLoggedException();
     }
+  }
+
+  @override
+  Future<void> initialize() async {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
   }
 }

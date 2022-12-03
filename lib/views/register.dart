@@ -1,7 +1,8 @@
 import 'dart:developer';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebasetest/constants/routes.dart';
+import 'package:firebasetest/services/auth/auth_exceptions.dart';
+import 'package:firebasetest/services/auth/auth_service.dart';
 import 'package:firebasetest/utilities/show_error_dialog.dart';
 
 import 'package:flutter/material.dart';
@@ -51,21 +52,22 @@ class _RegisterViewState extends State<RegisterView> {
               final email = _email.text;
               final pass = _pass.text;
               try {
-                await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                    email: email, password: pass);
-                final user = FirebaseAuth.instance.currentUser;
-                await user?.sendEmailVerification();
-                Navigator.of(context).pushNamed(verifyEmail);
-              } on FirebaseAuthException catch (e) {
-                if (e.code == 'weak-password') {
-                  await showErrorDialog(context, 'Weak passord!');
-                } else if (e.code == 'email-already-in-use') {
+                await AuthService.firebase()
+                      .createUser(email: email, password: pass);
+                  final user = AuthService.firebase().currentUser;
+                  await AuthService.firebase().sendEmailVerification();
+                  Navigator.of(context).pushNamed(verifyEmail);
+
+                } on WeakPasswordException{
+                  await showErrorDialog(context, 'Weak passord!'); 
+                } on EmailAlreadyInUse{
                   await showErrorDialog(context, 'Email in use!');
-                } else {
-                  await showErrorDialog(context, '$e.code');
-                }
+                } on GenericException{
+                  await showErrorDialog(context, 'Authentication Exception');
               }
-            },
+              
+              } 
+            ,
             child: const Text('Register')),
         TextButton(
           child: const Text('Login here!'),

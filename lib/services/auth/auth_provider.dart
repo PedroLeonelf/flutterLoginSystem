@@ -2,6 +2,9 @@ import 'package:firebasetest/services/auth/auth_user.dart';
 
 abstract class AuthProvider {
   UserAuth? get currentUser;
+
+  Future<void> initialize();
+
   Future<UserAuth> login({
     required String email,
     required String password,
