@@ -1,13 +1,9 @@
-
-
-
 import 'package:firebasetest/constants/routes.dart';
 import 'package:firebasetest/services/auth/auth_service.dart';
+import 'package:firebasetest/services/crud/notes_services.dart';
 import 'package:flutter/material.dart';
 
 import '../enums/menu_action.dart';
-
-
 
 class NotesView extends StatefulWidget {
   const NotesView({super.key});
@@ -17,6 +13,29 @@ class NotesView extends StatefulWidget {
 }
 
 class _NotesViewState extends State<NotesView> {
+  //String? get getUserEmail => AuthService.firebase().currentUser!.email;
+  String get getUserEmail {
+    final String? email = AuthService.firebase().currentUser!.email;
+    if (email == null) {
+      throw NullEmail;
+    }
+    return email;
+  }
+
+  late final NotesService noteService;
+
+  @override
+  void initState() {
+    noteService = NotesService();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    noteService.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,10 +67,32 @@ class _NotesViewState extends State<NotesView> {
           )
         ],
       ),
-      body: const Text('Hello World!'),
+      body: FutureBuilder(
+        future: noteService.getOrCreateUsers(email: getUserEmail),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.done:
+              return StreamBuilder(
+                  stream: noteService.allNotes,
+                  builder: ((context, snapshot) {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.waiting:
+                        return const Text('Wainting for all notes...');
+                      default:
+                        return const CircularProgressIndicator();
+                      
+                    }
+                  }));
+            default:
+              return const CircularProgressIndicator();
+          }
+        },
+      ),
     );
   }
 }
+
+class NullEmail implements Exception {}
 
 Future<bool> showLogOutDialog(BuildContext context) {
   return showDialog<bool>(
