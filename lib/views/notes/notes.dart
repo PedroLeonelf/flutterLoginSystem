@@ -3,7 +3,7 @@ import 'package:firebasetest/services/auth/auth_service.dart';
 import 'package:firebasetest/services/crud/notes_services.dart';
 import 'package:flutter/material.dart';
 
-import '../enums/menu_action.dart';
+import '../../enums/menu_action.dart';
 
 class NotesView extends StatefulWidget {
   const NotesView({super.key});
@@ -40,8 +40,14 @@ class _NotesViewState extends State<NotesView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Main UI'),
+        title: const Text('Your notes'),
         actions: [
+          IconButton(
+              onPressed: (() {
+                Navigator.of(context)
+                    .pushNamed(newNotesRoute);
+              }),
+              icon: const Icon(Icons.add)),
           PopupMenuButton<MenuAction>(
             onSelected: (value) async {
               switch (value) {
@@ -80,7 +86,6 @@ class _NotesViewState extends State<NotesView> {
                         return const Text('Wainting for all notes...');
                       default:
                         return const CircularProgressIndicator();
-                      
                     }
                   }));
             default:

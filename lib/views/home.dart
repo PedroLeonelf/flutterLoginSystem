@@ -1,7 +1,7 @@
 
 import 'package:firebasetest/services/auth/auth_service.dart';
 import 'package:firebasetest/views/login.dart';
-import 'package:firebasetest/views/notes.dart';
+import 'package:firebasetest/views/notes/notes.dart';
 import 'package:firebasetest/views/verify_email.dart';
 import 'package:flutter/material.dart';
 
